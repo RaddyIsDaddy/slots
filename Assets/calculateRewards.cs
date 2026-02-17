@@ -190,17 +190,6 @@ public class calculateRewards : MonoBehaviour
     {
         
     }
-    
-    public static void WinningLine(int line, int id)
-    {
-        List<Vector2Int> l1 = lines[line];
-        int[,] symbolIDs = logicScript.symbolIDs;
-
-        foreach (Vector2Int c in l1)
-        {
-            symbolIDs[c.x, c.y] = id;
-        }
-    }
     public static int NumberOfWins()
     {
         float r = Random.Range(0, 100);
@@ -238,8 +227,7 @@ public class calculateRewards : MonoBehaviour
         float ra = Random.Range(0f, 100f);
         if (ra < 55f)        amt = 3;
         else if (ra < 80f)   amt = 4;
-        else if (ra < 95f)   amt = 5;
-        else   amt = 6;
+        else   amt = 5;
 
         if (item == 1 && amt == 3) multi = 0.1;
         else if (item == 1 && amt == 4) multi = 0.5;
