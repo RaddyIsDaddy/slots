@@ -593,7 +593,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Text
   m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -632,7 +632,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1082467422}
   - component: {fileID: 1082467421}
-  - component: {fileID: 1082467423}
   - component: {fileID: 1082467424}
   m_Layer: 0
   m_Name: LogicManager
@@ -655,10 +654,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   a: {fileID: 2309454250754262233, guid: 2b9972ce85c33a04d99774665e25a24b, type: 3}
   b: {fileID: 7448129985346802301, guid: bfd00586df9894e4895a094e091700e3, type: 3}
-  c: {fileID: 0}
-  d: {fileID: 0}
-  e: {fileID: 0}
-  f: {fileID: 0}
+  c: {fileID: 5396958371391263872, guid: 420adde6d19642348994df0170778768, type: 3}
+  d: {fileID: 7220338578293732928, guid: a0d12a347f664c04ea977db203bed36e, type: 3}
+  e: {fileID: 1840521783837506340, guid: 449c25c21ec40864bb58d0ca37528bce, type: 3}
+  f: {fileID: 5826214389081980948, guid: d370e6cc2fdcad74a85e1eb53d751f82, type: 3}
+  winningText: {fileID: 725985536}
   pressedSpin: 0
   timer: 0
   timeBetweenRows: 0.08
@@ -677,20 +677,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2267323}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1082467423
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1082467420}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fb3db5732be4cde4fa08a2674b4bb158, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: '::'
-  xcol: 6
-  ycol: 4
 --- !u!114 &1082467424
 MonoBehaviour:
   m_ObjectHideFlags: 0
