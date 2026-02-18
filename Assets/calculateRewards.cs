@@ -210,25 +210,10 @@ public class calculateRewards : MonoBehaviour
             return 4;
         }
     }
-    public static List<double> WinMultiplier()
+
+    public static double findMulti(int item, int amt)
     {
-        int item;
-        int amt;
-        double multi = 0;
-
-        float ri = Random.Range(0f, 100f);
-        if (ri < 40f)        item = 1;
-        else if (ri < 65f)   item = 2;
-        else if (ri < 80f)   item = 3;
-        else if (ri < 90f)   item = 4;
-        else if (ri < 97f)   item = 5;
-        else                item = 6;
-        
-        float ra = Random.Range(0f, 100f);
-        if (ra < 55f)        amt = 3;
-        else if (ra < 80f)   amt = 4;
-        else   amt = 5;
-
+        double multi = 0.0;
         if (item == 1 && amt == 3) multi = 0.1;
         else if (item == 1 && amt == 4) multi = 0.5;
         else if (item == 1 && amt == 5) multi = 2;
@@ -260,6 +245,29 @@ public class calculateRewards : MonoBehaviour
         if (item == 8 && amt == 3) multi = 2;
         else if (item == 8 && amt == 4) multi = 7.5;
         else if (item == 8 && amt == 5) multi = 20;
+        return multi;
+    }
+
+
+    public static List<double> WinMultiplier()
+    {
+        int item;
+        int amt;
+
+        float ri = Random.Range(0f, 100f);
+        if (ri < 40f)        item = 1;
+        else if (ri < 65f)   item = 2;
+        else if (ri < 80f)   item = 3;
+        else if (ri < 90f)   item = 4;
+        else if (ri < 97f)   item = 5;
+        else                item = 6;
+        
+        float ra = Random.Range(0f, 100f);
+        if (ra < 55f)        amt = 3;
+        else if (ra < 80f)   amt = 4;
+        else   amt = 5;
+
+        double multi = findMulti(item, amt);
 
         List<double> l = new List<double>() {item, amt, multi};
         return l;

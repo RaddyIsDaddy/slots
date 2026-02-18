@@ -127,93 +127,105 @@ public class logicScript : MonoBehaviour
         int winAmt = calculateRewards.NumberOfWins();
         Debug.Log("Win Amount: " + winAmt);
 
+
+        // Loop for every winning payout
         for (int i = 0; i < winAmt; i++)
         {
-            List<int> availableLines = new(){0,1,2,3,4,5,6,7,8,9,10,11,12,13};
-            List<int> interLinesAvailable = new();
+
+            List<List<Vector2Int>> allLines = calculateRewards.lines;
+            List<List<Vector2Int>> usableLines = new();
 
             List<double> stats = calculateRewards.WinMultiplier();
-            int item = (int) stats[0];
-            int amt = (int) stats[1];
+            int item = (int)stats[0];
+            int amt = (int)stats[1];
             double multi = stats[2];
-            int line = -1;
-            Boolean found = false;
-            Boolean err = false;
-            Debug.Log("Item:  " + item + " Amount: " + amt + " Multi: " + multi);
 
-            foreach (int l in usedLine)
+            // Go through each line individually, where singleLine = the current line
+            foreach (List<Vector2Int> singleLine in allLines)
             {
-                List<int> interceptLines = calculateRewards.rowIncludes[l];
-                if (lineToLetter[l] == item)
-                {
-                    found = true;
-                    foreach (int a in interceptLines)
-                    {
-                        if (!usedLine.Contains(a))
-                        {
-                            // A IS POSSIBLE TO BE MADE
-                            interLinesAvailable.Add(a);
-                        }
-                    }
-                }
 
-            }
 
-            if (found)
-            {
-                if (interLinesAvailable.Count > 0)
-                {
-                    line = interLinesAvailable[Random.Range(0, interLinesAvailable.Count)];
-                    Debug.Log("Creating line inside line. Line:  " + line);
-                }
-            }
+                //Now check if this is a usable line
 
-            else
-            {
-                foreach (int u in usedLine)
+                //#1 - If Line is empty
+                if (lineSpacesEmpty(amt, singleLine))
                 {
-                    if (availableLines.Contains(u))
-                    {
-                        availableLines.Remove(u);
-                        foreach (int v in calculateRewards.rowIncludes[u])
-                        {
-                            availableLines.Remove(v);
-                        }
-                    }
-
-                }
-                if (availableLines.Count > 0)
-                {
-                    line = availableLines[Random.Range(0, availableLines.Count)];
-                    Debug.Log("New Line:  " + line);
+                    usableLines.Add(singleLine);
                 }
                 else
                 {
-                    Debug.Log("Ran Out Of Lines");
-                    err = true;
+                    if (lineOnlyHasItem(amt, item, singleLine))
+                    {
+                        if (symbolIDs[singleLine[0].x, singleLine[0].y] == 0)
+                        {
+                            usableLines.Add(singleLine);
+
+                        }
+                    }
                 }
+                
             }
-
-            if (err == false)
+            if (usableLines.Count == 0)
             {
-                usedLine.Add(line);
-                lineToLetter.Add(line, item);
-                // amt, item, multi, line
-                List<List<Vector2Int>> b = calculateRewards.lines;
-                List<Vector2Int> d = b[line];
-                for (int c = 0; c < amt; c++)
+                Debug.Log("Error Occured and no possible lines found");
+            }
+            else
+            {
+                // Find random usable line to use
+                List<Vector2Int> line = usableLines[Random.Range(0, usableLines.Count)];
+                foreach (Vector2Int lineCoord in line)
                 {
-                    Vector2Int e = d[c];
-                    symbolIDs[e.x, e.y] = item;
-
+                    if (lineCoord.x < amt)
+                    {
+                        symbolIDs[lineCoord.x, lineCoord.y] = item;
+                    }
                 }
+
             }
 
         }
-            
+
+        // Fill rest with giberish
+
+
+        // now lets double check all lines
+        // add later
+           
 
         StartCoroutine(spawnRowsWait());
         pressedSpin = false;
+    }
+
+    public Boolean lineOnlyHasItem(int length, int item, List<Vector2Int> line)
+    {
+
+        foreach (Vector2Int coord in line)
+        {
+            if (coord.x < length)
+            {
+                if (symbolIDs[coord.x, coord.y] != 0 && symbolIDs[coord.x, coord.y] != item)
+                {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    public Boolean lineSpacesEmpty(int length, List<Vector2Int> line)
+    {
+        foreach (Vector2Int coord in line)
+        {
+            if (coord.x < length)
+            {
+                if (symbolIDs[coord.x, coord.y] != 0)
+                {
+                    return false; 
+                }
+            }
+        }
+
+        return true;
     }
 
     IEnumerator spawnRowsWait()
