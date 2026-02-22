@@ -8,40 +8,11 @@ public class calculateRewards : MonoBehaviour
 
     public static Text winText;
 
-    public static List<List<int>> rowIncludes = new List<List<int>>()
-    {
-        
-        new List<int>(){4, 7, 10, 13}, // 1
-        
-        new List<int>(){4, 5, 7, 8, 10, 11, 12, 13}, // 2
-        
-        new List<int>(){5, 6, 8, 9, 10, 11, 12, 13}, // 3
-        
-        new List<int>(){6, 9, 11, 12}, // 4
-        
-        new List<int>(){0, 1, 8, 10, 13}, // 5
-        
-        new List<int>(){1, 2, 7, 9, 11, 12, 13}, // 6
-        
-        new List<int>(){2, 3, 8, 9, 10, 13}, // 7
-        
-        new List<int>(){0, 1, 5, 11, 12}, // 8
-        
-        new List<int>(){1, 2, 4, 6, 10, 13}, // 9
-        
-        new List<int>(){2, 3, 5, 11, 12}, // 10
-        
-        new List<int>(){0, 1, 2, 4, 6, 8, 13}, // 11
-        
-        new List<int>(){1, 2, 3, 5, 7, 9, 12}, // 12
-        
-        new List<int>(){1, 2, 3, 5, 7, 9, 11}, // 13
-        
-        new List<int>(){0, 1, 2, 4, 6, 8, 10}, // 14
-    };
+
+    // ALL LINES
     public static List<List<Vector2Int>> lines = new List<List<Vector2Int>>()
     {
-        // 1 FIRST ROW FROM BOTTOM
+        // 1 ( - 1)
         new List<Vector2Int>()
         {
             new Vector2Int(0, 3),
@@ -51,7 +22,7 @@ public class calculateRewards : MonoBehaviour
             new Vector2Int(4, 3),
         },
 
-        // 2 SECOND ROW FROM BOTTOM
+        // 2 
         new List<Vector2Int>()
         {
             new Vector2Int(0, 2),
@@ -61,7 +32,7 @@ public class calculateRewards : MonoBehaviour
             new Vector2Int(4, 2),
         },
 
-        // 3 THIRD ROW FROM BOTTOM
+        // 3
         new List<Vector2Int>()
         {
             new Vector2Int(0, 1),
@@ -71,7 +42,7 @@ public class calculateRewards : MonoBehaviour
             new Vector2Int(4, 1),
         },
 
-        // 4 FOUTH ROW FROM BOTTOM
+        // 4 
         new List<Vector2Int>()
         {
             new Vector2Int(0, 0),
@@ -181,6 +152,8 @@ public class calculateRewards : MonoBehaviour
             new Vector2Int(4, 1),
         },
     };
+
+
     void Start()
     {
     }
@@ -189,26 +162,6 @@ public class calculateRewards : MonoBehaviour
     void Update()
     {
         
-    }
-    public static int NumberOfWins()
-    {
-        float r = Random.Range(0, 100);
-        if (r <= 50)
-        {
-            return 1;
-        }
-        else if (r <= 75)
-        {
-            return 2;
-        }
-        else if (r <= 90)
-        {
-            return 3;
-        }
-        else
-        {
-            return 4;
-        }
     }
 
     public static double findMulti(int item, int amt)
@@ -246,30 +199,5 @@ public class calculateRewards : MonoBehaviour
         else if (item == 8 && amt == 4) multi = 7.5;
         else if (item == 8 && amt == 5) multi = 20;
         return multi;
-    }
-
-
-    public static List<double> WinMultiplier()
-    {
-        int item;
-        int amt;
-
-        float ri = Random.Range(0f, 100f);
-        if (ri < 40f)        item = 1;
-        else if (ri < 65f)   item = 2;
-        else if (ri < 80f)   item = 3;
-        else if (ri < 90f)   item = 4;
-        else if (ri < 97f)   item = 5;
-        else                item = 6;
-        
-        float ra = Random.Range(0f, 100f);
-        if (ra < 55f)        amt = 3;
-        else if (ra < 80f)   amt = 4;
-        else   amt = 5;
-
-        double multi = findMulti(item, amt);
-
-        List<double> l = new List<double>() {item, amt, multi};
-        return l;
     }
 }
